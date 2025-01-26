@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>&lt;4</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            touch-action: manipulation;
+        }
+        html {
+            background: #16161d;
+        }
+        canvas {
+            background: #16161d;
+            /*
+            background: #16161d;
+            display: block;
+            margin: 0 auto;
+            align-self: center;
+            */
+            padding: 0;
+            margin: auto;
+            display: block;
+            /*
+            width: 180px;
+            height: 400px;
+            */ 
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="canvas" width="420" height="900"></canvas>
+
+<script src="src/util/Draw.js"></script>
+<script src="src/util/Util.js"></script>
+
+<!-- CORE -->
+<script src="src/core/Res.js"></script>
+<script src="src/core/AudioManager.js"></script>
+<script src="src/core/Entity.js"></script>
+<script src="src/core/Layer.js"></script>
+
+<script src="src/core/graphics/Camera.js"></script>
+<script src="src/core/graphics/Anim.js"></script>
+<script src="src/core/graphics/Sprite.js"></script>
+<script src="src/core/graphics/Model.js"></script>
+
+<script src="src/core/physics/Body.js"></script>
+<script src="src/core/physics/Space.js"></script>
+
+
+<!-- INPUT -->
+<script src="src/core/input/InputManager.js"></script>
+<script src="src/core/input/InputSource.js"></script>
+<script src="src/core/input/KeyboardInput.js"></script>
+
+
+<!-- GAME DATA -->
+<script src="src/Nodes.js"></script>
+<script src="src/Dialogue.js"></script>
+<script src="src/Soothsaying.js"></script>
+
+
+<!-- ENTITIES -->
+<script src="src/entities/FrogEntity.js"></script>
+<script src="src/entities/LightingEntity.js"></script>
+
+
+<!-- LAYERS -->
+<script src="src/layers/game/GameState.js"></script>
+<script src="src/layers/game/DialoguePlayer.js"></script>
+<script src="src/layers/TestLayer.js"></script>
+
+
+<!-- MAIN -->
+<script src="Main.js"></script>
+
+</body>
+</html>

@@ -9,6 +9,7 @@ class DialoguePlayer
 
     advanceNode()
     {
+        //this.layer.frog.faceIndex = 0;
         let nextNodeId = this.currentNode == null ? entryNodeId : this.currentNode.nextNodeId;
         this.advanceNodeId(nextNodeId);
     }
@@ -25,6 +26,7 @@ class DialoguePlayer
     onEnterDialogueNode(node)
     {
         console.warn("enter dialogue node");
+        this.layer.frog.faceIndex = node.faceIndex;
         let stateText = new GameStateFrogTalking(
             this.layer,
             node.text,
@@ -78,6 +80,11 @@ class DialoguePlayer
                     this.advanceNode.bind(this));
                 this.layer.setState(state);
                 break;
+            }
+
+            case "GAME_END":
+            {
+                // TODO
             }
 
             default:

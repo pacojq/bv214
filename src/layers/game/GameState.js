@@ -82,8 +82,8 @@ class GameStateFrogTalking extends GameState
     {
         super.update();
 
-        const TEXT_SPEED = 14.0; // chars per second
-        let textSpd = TEXT_SPEED * (input.hasClick ? 20.0 : 1.0);
+        const TEXT_SPEED = 21.0; // chars per second
+        let textSpd = TEXT_SPEED * (input.hasClick ? 80.0 : 1.0);
         let maxIndex = this.text.length;
         if (this.targetIndex < maxIndex)
         {
@@ -141,7 +141,7 @@ class GameStateFrogTalking extends GameState
     drawGUI()
     {
         let x = this.layer.width/2.0;
-        let yText = this.layer.height * 0.2;
+        let yText = this.layer.height * 0.15;
         let yWait = this.layer.height * 0.85;
 
         // Draw text
@@ -185,6 +185,9 @@ class GameStateChoice_Item
         this.yVelocity = 0;
         this.width = width;
         this.height = height;
+        this.sprBackground = new NineSlice(res.spr_ui_panel, width + 20, height + 12, 480, 240);
+        this.sprBackground.xScale = 0.1;
+        this.sprBackground.yScale = 0.1;
     }
 
     containsPoint(pX, pY)
@@ -193,7 +196,7 @@ class GameStateChoice_Item
                 pX <= this.x + this.width/2 && pX >= this.x - this.width/2);
     }
 
-    isReady() { return Math.abs(this.y - this.yTarget) < 0.001; }
+    isReady() { return Math.abs(this.y - this.yTarget) < 0.1; }
 
     update()
     {
@@ -205,10 +208,10 @@ class GameStateChoice_Item
     drawGUI()
     {
         // TODO - draw background
+        this.sprBackground.draw(this.x, this.y - this.height * .15);
 
         // Draw text
-        let color = "rgb(92, 153, 167)";
-        drawSetColor(color);
+        drawSetColor("black");
         drawText(this.x, this.y, this.option.text, "center", 18);
         drawResetColor();
     }
@@ -241,7 +244,7 @@ class GameStateChoice extends GameState
         let x = layer.width / 2;
         let width = layer.width * .7;
         let height = 40;
-        let y = layer.height * .85;
+        let y = layer.height * .88;
         let yStart = layer.height + 120;
 
         for (let i = options.length-1; i >= 0; i--)
@@ -249,7 +252,7 @@ class GameStateChoice extends GameState
             let opt = options[i];
             this.options.push(new GameStateChoice_Item(
                 opt, x, y, yStart, width, height));
-            y -= (height + 12);
+            y -= (height + 20);
         }
     }
 
@@ -283,13 +286,18 @@ class GameStateChoice extends GameState
 
     drawGUI()
     {
+        if (!this.layer.lighting.isVisible)
+        {
+            drawRect(-1, -1, this.layer.width+1, this.layer.height+1, "rgba(0, 0, 0, 0.45)", true);
+        }
+
         let x = this.layer.width/2.0;
-        let yText = this.layer.height * 0.2;
+        let yText = this.layer.height * 0.15;
 
         // Draw text
         let color = this.layer.lighting.isVisible
-            ? "rgb(225, 193, 104)" // light
-            : "rgb(45, 6, 41)"; // dark
+            ? "rgb(225, 193, 104)"
+            : "rgb(255, 225, 141)";
         drawSetColor(color);
 
         for (let line = 0; line < this.shownLines.length; line++)

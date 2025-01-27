@@ -11,11 +11,12 @@ class GameNode
 
 class GameNodeText extends GameNode
 {
-    constructor(text, nextNodeId)
+    constructor(text, nextNodeId, faceIndex)
     {
         super();
         this.text = text;
         this.nextNodeId = nextNodeId;
+        this.faceIndex = faceIndex;
     }
 
     onEnter(dialoguePlayer)

@@ -3,9 +3,9 @@
 var nodeMap = new Map();
 var entryNodeId = "ENTRY";
 
-function DO_TEXT(id, text, nextNodeId)
+function DO_TEXT(id, text, nextNodeId, faceIndex = 0)
 {
-    nodeMap.set(id, new GameNodeText(text, nextNodeId));
+    nodeMap.set(id, new GameNodeText(text, nextNodeId, faceIndex));
 }
 
 function DO_CHOICE(id, text, options)
@@ -57,11 +57,71 @@ DO_TEXT("INTRO_09",     "a ver, chica, ¿cómo no lo vas"             + '\n' +
                         "a saber? quiero decir...",                 "INTRO_10");
 DO_TEXT("INTRO_10",     "en fin. ya está. me diré que"              + '\n' +
                         "intentas vacilarme y ya.",                 "INTRO_END");
-DO_EVENT("INTRO_END", "INTRO_END",                                  "TODO");
+DO_EVENT("INTRO_END", "INTRO_END",                                  "PRESENTATION_00");
 
-// TODO: lights on
+// lights on. presentation.
+
+DO_TEXT("PRESENTATION_00",  "me presento.",                         "PRESENTATION_01", 1);
+DO_TEXT("PRESENTATION_01",  "mi nombre es Ribbitus McSpellhop,"     + '\n' +
+                            "hechicero de profesión, oráculo"       + '\n' +
+                            "en mis tiempos libres.",               "PRESENTATION_02", 0);
+DO_TEXT("PRESENTATION_02",  "y ahora que las presentaciones"        + '\n' +
+                            "están hechas...",                      "PRESENTATION_03", 1);
+DO_TEXT("PRESENTATION_03",  "lo que va a pasar es lo"               + '\n' +
+                            "siguiente:",                           "PRESENTATION_04", 2);
+DO_TEXT("PRESENTATION_04",  "procederé a hacerte una serie"         + '\n' +
+                            "de preguntas",                         "PRESENTATION_05");
+DO_TEXT("PRESENTATION_05",  "y pediremos a los amuletos que,"       + '\n' +
+                            "según lo que respondas, vaticinen"     + '\n' +
+                            "qué te depara el futuro.",             "PRESENTATION_06");
+DO_TEXT("PRESENTATION_06",  "está todo claro, ¿no?",                "PRESENTATION_07", 4);
+DO_CHOICE("PRESENTATION_07",   "",
+    [
+    new ChoiceOption(   "¿qué haces? déjame en paz",                "PRESENTATION_08"),
+    new ChoiceOption(   "todo claro.",                              "PRESENTATION_10")
+    ]);
+DO_WAIT("PRESENTATION_08", 1.8,                                     "PRESENTATION_09");
+DO_TEXT("PRESENTATION_09",  "...qué trabajo tan desagradecido.",    "PRESENTATION_11", 2);
+DO_TEXT("PRESENTATION_10",  "muy bien. así me gusta.",              "PRESENTATION_11");
+DO_TEXT("PRESENTATION_11",  "bueno, se acabó la charla."            + '\n' +
+                            "manos a la obra.",                     "CHOICE_SIGN_00");
+
+// astral sign
+
+DO_TEXT("CHOICE_SIGN_00",     "necesito que me digas...",             "CHOICE_SIGN_01");
+DO_TEXT("CHOICE_SIGN_01",     "¿cuál es tu signo astral?",            "CHOICE_SIGN_02");
+DO_CHOICE("CHOICE_SIGN_02",   "",
+    [
+    new ChoiceOption(   "aries",             "CHOICE_ARIES"),
+    new ChoiceOption(   "tauro",             "CHOICE_TAURUS"),
+    new ChoiceOption(   "géminis",             "CHOICE_GEMINI"),
+    new ChoiceOption(   "cáncer",             "CHOICE_CANCER"),
+    new ChoiceOption(   "leo",          "CHOICE_LEO"),
+    new ChoiceOption(   "virgo",          "CHOICE_VIRGO"),
+    new ChoiceOption(   "libra",          "CHOICE_LIBRA"),
+    new ChoiceOption(   "escorpio",          "CHOICE_SCORPIO"),
+    new ChoiceOption(   "sagitario",          "CHOICE_SAGITTARIUS"),
+    new ChoiceOption(   "capricornio",          "CHOICE_CAPRICORN"),
+    new ChoiceOption(   "acuario",          "CHOICE_AQUARIUS"),
+    new ChoiceOption(   "pisces",          "CHOICE_PISCES"),
+    ]);
+
+// actor
+
+DO_TEXT("CHOICE_ACTOR_00",     "¿Paul Mescal o Pedro Pascal?",      "CHOICE_ACTOR_01");
+DO_CHOICE("CHOICE_ACTOR_01",   "",
+    [
+    new ChoiceOption(   "Paul Mescal",                              "CHOICE_ACTOR_02"),
+    new ChoiceOption(   "Pedro Pascal?",                            "CHOICE_ACTOR_02")
+    ]);
+ DO_TEXT("CHOICE_ACTOR_02",     "vaya...",                          "CHOICE_ACTOR_03", 3);
+ DO_TEXT("CHOICE_ACTOR_03",     "sinceramente, esta era solo"       + '\n' +
+                                "por curiosidad.",                  "TODO", 4);
+
 
 // TODO: all the content
+
+// ending
 
 DO_TEXT("ENDING_00",    "...",                                      "ENDING_01");
 DO_TEXT("ENDING_01",    "vale, no te voy a mentir.",                "ENDING_02");

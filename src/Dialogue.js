@@ -18,9 +18,9 @@ function DO_WAIT(id, time, nextNodeId)
     nodeMap.set(id, new GameNodeWaitSeconds(time, nextNodeId));
 }
 
-function DO_EVENT(id, eventId, nextNodeId)
+function DO_EVENT(id, eventId, payload, nextNodeId)
 {
-    nodeMap.set(id, new GameNodeEvent(eventId, nextNodeId));
+    nodeMap.set(id, new GameNodeEvent(eventId, payload, nextNodeId));
 }
 
 function GetDialogueNode(nodeId)
@@ -57,7 +57,7 @@ DO_TEXT("INTRO_09",     "a ver, chica, ¿cómo no lo vas"             + '\n' +
                         "a saber? quiero decir...",                 "INTRO_10");
 DO_TEXT("INTRO_10",     "en fin. ya está. me diré que"              + '\n' +
                         "intentas vacilarme y ya.",                 "INTRO_END");
-DO_EVENT("INTRO_END", "INTRO_END",                                  "PRESENTATION_00");
+DO_EVENT("INTRO_END", "INTRO_END", null,                            "PRESENTATION_00");
 
 // lights on. presentation.
 
@@ -88,8 +88,8 @@ DO_TEXT("PRESENTATION_11",  "bueno, se acabó la charla."            + '\n' +
 
 // astral sign
 
-DO_TEXT("CHOICE_SIGN_00",     "necesito que me digas...",             "CHOICE_SIGN_01");
-DO_TEXT("CHOICE_SIGN_01",     "¿cuál es tu signo astral?",            "CHOICE_SIGN_02");
+DO_TEXT("CHOICE_SIGN_00",     "necesito que me digas...",           "CHOICE_SIGN_01");
+DO_TEXT("CHOICE_SIGN_01",     "¿cuál es tu signo astral?",          "CHOICE_SIGN_02");
 DO_CHOICE("CHOICE_SIGN_02",   "",
     [
     new ChoiceOption(   "aries",             "CHOICE_ARIES"),
@@ -105,17 +105,39 @@ DO_CHOICE("CHOICE_SIGN_02",   "",
     new ChoiceOption(   "acuario",          "CHOICE_AQUARIUS"),
     new ChoiceOption(   "pisces",          "CHOICE_PISCES"),
     ]);
+DO_EVENT("CHOICE_ARIES",       "CHOICE_SIGN", { sign: "ARIES"},       "CHOICE_SIGN_03");
+DO_EVENT("CHOICE_TAURUS",      "CHOICE_SIGN", { sign: "TAURUS"},      "CHOICE_SIGN_03");
+DO_EVENT("CHOICE_GEMINI",      "CHOICE_SIGN", { sign: "GEMINI"},      "CHOICE_SIGN_03");
+DO_EVENT("CHOICE_CANCER",      "CHOICE_SIGN", { sign: "CANCER"},      "CHOICE_SIGN_03");
+DO_EVENT("CHOICE_LEO",         "CHOICE_SIGN", { sign: "LEO"},         "CHOICE_SIGN_03");
+DO_EVENT("CHOICE_VIRGO",       "CHOICE_SIGN", { sign: "VIRGO"},       "CHOICE_SIGN_03");
+DO_EVENT("CHOICE_LIBRA",       "CHOICE_SIGN", { sign: "LIBRA"},       "CHOICE_SIGN_03");
+DO_EVENT("CHOICE_SCORPIO",     "CHOICE_SIGN", { sign: "SCORPIO"},     "CHOICE_SIGN_03");
+DO_EVENT("CHOICE_SAGITTARIUS", "CHOICE_SIGN", { sign: "SAGITTARIUS"}, "CHOICE_SIGN_03");
+DO_EVENT("CHOICE_CAPRICORN",   "CHOICE_SIGN", { sign: "CAPRICORN"},   "CHOICE_SIGN_03");
+DO_EVENT("CHOICE_AQUARIUS",    "CHOICE_SIGN", { sign: "AQUARIUS"},    "CHOICE_SIGN_03");
+DO_EVENT("CHOICE_PISCES",      "CHOICE_SIGN", { sign: "PISCES"},      "CHOICE_SIGN_03");
+
+DO_TEXT("CHOICE_SIGN_03",       "bien, bien...",                    "CHOICE_SIGN_04");
+DO_TEXT("CHOICE_SIGN_04",       "(por supuesto, yo ya lo sabía)",   "CHOICE_SIGN_05");
+DO_TEXT("CHOICE_SIGN_05",       "(solo intento hacerte"             + '\n' +
+                                "sentir partícipe)",                "CHOICE_SIGN_06");
+DO_TEXT("CHOICE_SIGN_06",       "acorde a tu signo ascendente,"     + '\n' +
+                                "recurriremos a este amuleto:",     "CHOICE_SIGN_SHOW");
+DO_EVENT("CHOICE_SIGN_SHOW",    "SHOW_ITEM", { index: 0 },          "CHOICE_SIGN_07");
+
 
 // actor
 
-DO_TEXT("CHOICE_ACTOR_00",     "¿Paul Mescal o Pedro Pascal?",      "CHOICE_ACTOR_01");
-DO_CHOICE("CHOICE_ACTOR_01",   "",
+DO_TEXT("CHOICE_ACTOR_00",     "y por último...",                   "CHOICE_ACTOR_01");
+DO_TEXT("CHOICE_ACTOR_01",     "¿Paul Mescal o Pedro Pascal?",      "CHOICE_ACTOR_02");
+DO_CHOICE("CHOICE_ACTOR_02",   "",
     [
-    new ChoiceOption(   "Paul Mescal",                              "CHOICE_ACTOR_02"),
-    new ChoiceOption(   "Pedro Pascal?",                            "CHOICE_ACTOR_02")
+    new ChoiceOption(   "Paul Mescal",                              "CHOICE_ACTOR_03"),
+    new ChoiceOption(   "Pedro Pascal?",                            "CHOICE_ACTOR_03")
     ]);
- DO_TEXT("CHOICE_ACTOR_02",     "vaya...",                          "CHOICE_ACTOR_03", 3);
- DO_TEXT("CHOICE_ACTOR_03",     "sinceramente, esta era solo"       + '\n' +
+ DO_TEXT("CHOICE_ACTOR_03",     "vaya...",                          "CHOICE_ACTOR_04", 3);
+ DO_TEXT("CHOICE_ACTOR_04",     "sinceramente, esta era solo"       + '\n' +
                                 "por curiosidad.",                  "TODO", 4);
 
 
@@ -166,5 +188,5 @@ DO_TEXT("ENDING_16",    "decidas lo que decidas, aprovecha"         + '\n' +
 DO_WAIT("ENDING_17", 3.0,                                           "ENDING_18");
 DO_TEXT("ENDING_18",    "...y dile que me debe un bizum.",          "GAME_END");
 
-DO_EVENT("GAME_END", "GAME_END",                                    "_");
+DO_EVENT("GAME_END", "GAME_END", null,                              "_");
 // TODO: end the game

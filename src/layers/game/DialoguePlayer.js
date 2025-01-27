@@ -82,6 +82,16 @@ class DialoguePlayer
                 break;
             }
 
+            case "CHOICE_SIGN":
+            {
+                // TODO - get payload.sign
+            }
+
+            case "SHOW_ITEM":
+            {
+                // TODO enter show item state with payload.index
+            }
+
             case "GAME_END":
             {
                 // TODO

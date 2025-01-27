@@ -67,11 +67,12 @@ class GameNodeWaitSeconds extends GameNode
 
 class GameNodeEvent extends GameNode
 {
-    constructor(eventId, nextNodeId)
+    constructor(eventId, payload, nextNodeId)
     {
         super();
         this.eventId = eventId;
         this.nextNodeId = nextNodeId;
+        this.payload = payload;
     }
 
     onEnter(dialoguePlayer)

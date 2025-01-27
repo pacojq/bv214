@@ -11,6 +11,61 @@ class GameState
     drawGUI() {}
 }
 
+class UiComponentWaiting
+{
+    constructor()
+    {
+        this.showWaitingCountdown = 1.0;
+
+        this.sprWaitingIndex = 0;
+        this.sprWaitings =
+        [
+            this._createWaitingSprite(res.spr_ui_waiting0),
+            this._createWaitingSprite(res.spr_ui_waiting1),
+            this._createWaitingSprite(res.spr_ui_waiting2),
+            this._createWaitingSprite(res.spr_ui_waiting3)
+        ];
+        this.sprWaitings[0].alpha = 0.0;
+
+        this.x = 0;
+        this.y = 0;
+    }
+
+    update()
+    {
+        if (this.showWaitingCountdown > 0)
+        {
+            this.showWaitingCountdown -= DeltaTime;
+
+            let t = Math.min(this.showWaitingCountdown, 1);
+            this.sprWaitings[0].alpha = 1 - Math.max(0, t);
+        }
+        else
+        {
+            const WAIT_SPEED = 2.1;
+            this.sprWaitingIndex += DeltaTime * WAIT_SPEED;
+            if (this.sprWaitingIndex >= this.sprWaitings.length)
+            {
+                this.sprWaitingIndex -= this.sprWaitings.length;
+            }
+        }
+    }
+
+    drawGUI()
+    {
+        let sprWaiting = this.sprWaitings[Math.floor(this.sprWaitingIndex)];
+        sprWaiting.draw(this.x, this.y);
+    }
+
+    _createWaitingSprite(filename)
+    {
+        let sprite = new Sprite(filename);
+        sprite.xScale = 0.15;
+        sprite.yScale = 0.15;
+        return sprite;
+    }
+}
+
 class GameStateWaitSeconds extends GameState
 {
     constructor(time, callback)
@@ -66,16 +121,8 @@ class GameStateFrogTalking extends GameState
         this.shownIndex = 0;
         this.targetIndex = 0;
 
-        this.showWaitingCountdown = 1.2;
-        this.sprWaitingIndex = 0; // TODO loading "..." dots
-        this.sprWaitings =
-        [
-            this._createWaitingSprite(res.spr_ui_waiting0),
-            this._createWaitingSprite(res.spr_ui_waiting1),
-            this._createWaitingSprite(res.spr_ui_waiting2),
-            this._createWaitingSprite(res.spr_ui_waiting3)
-        ];
-        this.sprWaitings[0].alpha = 0.0;
+        this.uiWaiting = new UiComponentWaiting();
+        this.uiWaiting.showWaitingCountdown = 1.2;
     }
 
     update()
@@ -109,25 +156,8 @@ class GameStateFrogTalking extends GameState
 
         if (this.shownIndex >= maxIndex)
         {
-            if (this.showWaitingCountdown > 0)
-            {
-                this.showWaitingCountdown -= DeltaTime;
-
-                let t = Math.min(this.showWaitingCountdown, 1);
-                this.sprWaitings[0].alpha = 1 - Math.max(0, t);
-            }
-            else
-            {
-                const WAIT_SPEED = 2.1;
-                this.sprWaitingIndex += DeltaTime * WAIT_SPEED;
-                if (this.sprWaitingIndex >= this.sprWaitings.length)
-                {
-                    this.sprWaitingIndex -= this.sprWaitings.length;
-                }
-            }
-
-            
-            if (input.hasClick && this.showWaitingCountdown < 0.8)
+            this.uiWaiting.update();
+            if (input.hasClick && this.uiWaiting.showWaitingCountdown < 0.8)
             {
                 this.callback();
             }
@@ -140,6 +170,7 @@ class GameStateFrogTalking extends GameState
 
     drawGUI()
     {
+        let maxIndex = this.text.length;
         let x = this.layer.width/2.0;
         let yText = this.layer.height * 0.15;
         let yWait = this.layer.height * 0.85;
@@ -158,19 +189,12 @@ class GameStateFrogTalking extends GameState
         drawResetColor();
 
         // Draw waiting dots
-        if (this.shownIndex >= this.text.length)
+        if (this.shownIndex >= maxIndex)
         {
-            let sprWaiting = this.sprWaitings[Math.floor(this.sprWaitingIndex)];
-            sprWaiting.draw(x, yWait);
+            this.uiWaiting.x = x;
+            this.uiWaiting.y = yWait;
+            this.uiWaiting.drawGUI();
         }
-    }
-
-    _createWaitingSprite(filename)
-    {
-        let sprite = new Sprite(filename);
-        sprite.xScale = 0.15;
-        sprite.yScale = 0.15;
-        return sprite;
     }
 }
 
@@ -188,6 +212,17 @@ class GameStateChoice_Item
         this.sprBackground = new NineSlice(res.spr_ui_panel, width + 20, height + 12, 480, 240);
         this.sprBackground.xScale = 0.1;
         this.sprBackground.yScale = 0.1;
+
+        this.textSize = 18;
+        if (this.option.text.length > 36)
+        {
+            this.textSize = 14;
+        }
+        else if (this.option.text.length > 30)
+        {
+            this.textSize = 16;
+        }
+        //console.warn("option length: " + this.option.text.length);
     }
 
     containsPoint(pX, pY)
@@ -212,7 +247,7 @@ class GameStateChoice_Item
 
         // Draw text
         drawSetColor("black");
-        drawText(this.x, this.y, this.option.text, "center", 18);
+        drawText(this.x, this.y, this.option.text, "center", this.textSize);
         drawResetColor();
     }
 
@@ -242,7 +277,7 @@ class GameStateChoice extends GameState
         this.options = [];
 
         let x = layer.width / 2;
-        let width = layer.width * .7;
+        let width = layer.width * .8;
         let height = 40;
         let y = layer.height * .88;
         let yStart = layer.height + 120;
@@ -310,6 +345,81 @@ class GameStateChoice extends GameState
 
         // Draw options
         this.options.forEach(opt => opt.drawGUI());
+    }
+}
+
+class GameStateShowToken extends GameState
+{
+    constructor(layer, tokenIndex, callback)
+    {
+        super(callback);
+        this.layer = layer;
+        this.token = layer.soothsaying.getItem(tokenIndex);
+
+        this.yTarget = this.layer.height * 0.5;
+        this.ySprite = this.layer.height + 120;
+        this.yVelocity = 0;
+
+        this.uiWaiting = new UiComponentWaiting();
+        this.uiWaiting.showWaitingCountdown = 1.2;
+    }
+
+    isReady() { return (Math.abs(this.ySprite - this.yTarget) < 0.1) && (Math.abs(this.yVelocity) < 0.1); }
+
+    update()
+    {
+        if (this.isReady())
+        {
+            this.uiWaiting.update();
+            if (input.hasClick && this.uiWaiting.showWaitingCountdown < 0.8)
+            {
+                this.callback();
+            }
+        }
+
+        const zeta = 0.55;
+        const omega = 3 * Math.PI;
+        this._spring_y(zeta, omega, DeltaTime);
+    }
+
+    drawGUI()
+    {
+        drawRect(-1, -1, this.layer.width+1, this.layer.height+1, "rgba(0, 0, 0, 0.65)", true);
+
+        let x = this.layer.width/2.0;
+        let yText = this.layer.height * 0.15;
+        let yWait = this.layer.height * 0.85;
+
+        // Draw text
+        drawSetColor("rgb(255, 214, 11)");
+        drawText(x, yText, this.token.name, "center", 26);
+        
+        // Draw sprite
+        this.token.sprite.xScale = 0.5;
+        this.token.sprite.yScale = 0.5;
+        this.token.sprite.draw(x, this.ySprite);
+
+        // Draw waiting
+        if (this.isReady())
+        {
+            this.uiWaiting.x = x;
+            this.uiWaiting.y = yWait;
+            this.uiWaiting.drawGUI();
+        }
+    }
+
+    _spring_y(zeta, omega, h)
+    {
+        let f = 1.0 + 2.0 * h * zeta * omega;
+        let oo = omega * omega;
+        let hoo = h * oo;
+        let hhoo = h * hoo;
+        let detInv = 1.0 / (f + hhoo);
+        let detX = f * this.ySprite + h * this.yVelocity + hhoo * this.yTarget;
+        let detV = this.yVelocity + hoo * (this.yTarget - this.ySprite);
+
+        this.ySprite = detX * detInv;
+        this.yVelocity = detV * detInv;
     }
 }
 

@@ -6,7 +6,7 @@ const context = canvas.getContext("2d");
 var _currentLayer;
 var __newLayer;
 
-var testLayer;
+var gameLayer;
 
 var input;
 var audio;
@@ -17,9 +17,8 @@ function startGame() {
     input = new InputManager();
     audio = new AudioManager();
 
-    testLayer = new TestLayer();
-
-    setLayer(testLayer);
+    gameLayer = new GameLayer();
+    setLayer(gameLayer);
 
     setInterval(loop, 1000 / TARGET_FPS);
 }

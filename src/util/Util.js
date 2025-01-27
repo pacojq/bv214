@@ -55,7 +55,7 @@ function randomRange(min, max)
 
 function choose(args)
 {
-    return arguments[irandom(arguments.length)];
+    return args[irandom(args.length)];
 }
 
 

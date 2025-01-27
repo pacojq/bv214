@@ -25,7 +25,7 @@ class DialoguePlayer
 
     onEnterDialogueNode(node)
     {
-        console.warn("enter dialogue node");
+        //console.warn("enter dialogue node");
         this.layer.frog.faceIndex = node.faceIndex;
         let stateText = new GameStateFrogTalking(
             this.layer,
@@ -45,7 +45,7 @@ class DialoguePlayer
             }
         }
 
-        console.warn("enter choice node");
+        //console.warn("enter choice node");
         let stateChoice = new GameStateChoice(
             this.layer,
             text,
@@ -62,7 +62,7 @@ class DialoguePlayer
 
     onEnterWaitSecondsNode(node)
     {
-        console.warn("enter seconds node");
+        //console.warn("enter seconds node");
         let stateWait = new GameStateWaitSeconds(
             node.time,
             this.advanceNode.bind(this));
@@ -84,12 +84,22 @@ class DialoguePlayer
 
             case "CHOICE_SIGN":
             {
-                // TODO - get payload.sign
+                this.layer.soothsaying.pushItem(node.payload.sign);
+                let stateWait = new GameStateWaitSeconds(
+                    0.01,
+                    this.advanceNode.bind(this));
+                this.layer.setState(stateWait);
+                break;
             }
 
             case "SHOW_ITEM":
             {
-                // TODO enter show item state with payload.index
+                let state = new GameStateShowToken(
+                    this.layer,
+                    node.payload.index,
+                    this.advanceNode.bind(this));
+                this.layer.setState(state);
+                break;
             }
 
             case "GAME_END":

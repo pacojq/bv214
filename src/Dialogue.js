@@ -1,7 +1,7 @@
 
 
 var nodeMap = new Map();
-var entryNodeId = "ENTRY";
+var entryNodeId = "SHORTCUT"; //"ENTRY";
 
 function DO_TEXT(id, text, nextNodeId, faceIndex = 0)
 {
@@ -33,6 +33,10 @@ function GetDialogueNode(nodeId)
     return nodeMap.get(nodeId);
 }
 
+DO_EVENT("SHORTCUT", "INTRO_END", null, "CHOICE_SIGN_00");
+
+
+
 DO_WAIT("ENTRY", 1.0,                                               "ENTRY_text");
 DO_TEXT("ENTRY_text",   "saludos.",                                 "INTRO_00");
 DO_TEXT("INTRO_00",     "te estaba esperando...",                   "INTRO_01");
@@ -40,7 +44,7 @@ DO_TEXT("INTRO_01",     "los amuletos auguraron que vendrías"       + '\n' +
                         "buscando consejo.",                        "INTRO_02");
 DO_CHOICE("INTRO_02",   "",
     [
-    new ChoiceOption(   "yo no he decidido venir aquí",             "INTRO_03"),
+    new ChoiceOption(   "yo no quiero consejo de nadie",            "INTRO_03"),
     new ChoiceOption(   "venir... ¿a dónde, exactamente?",          "INTRO_07")
     ]);
 DO_TEXT("INTRO_03",     "a ver, guapa, te lo estoy poniendo"        + '\n' +
@@ -70,10 +74,10 @@ DO_TEXT("PRESENTATION_02",  "y ahora que las presentaciones"        + '\n' +
 DO_TEXT("PRESENTATION_03",  "lo que va a pasar es lo"               + '\n' +
                             "siguiente:",                           "PRESENTATION_04", 2);
 DO_TEXT("PRESENTATION_04",  "procederé a hacerte una serie"         + '\n' +
-                            "de preguntas",                         "PRESENTATION_05");
-DO_TEXT("PRESENTATION_05",  "y pediremos a los amuletos que,"       + '\n' +
-                            "según lo que respondas, vaticinen"     + '\n' +
-                            "qué te depara el futuro.",             "PRESENTATION_06");
+                            "de preguntas;",                         "PRESENTATION_05");
+DO_TEXT("PRESENTATION_05",  "considerando tus respuestas,"          + '\n' +
+                            "los amuletos darán un vaticinio"       + '\n' +
+                            "sobre qué te depara el futuro.",       "PRESENTATION_06");
 DO_TEXT("PRESENTATION_06",  "está todo claro, ¿no?",                "PRESENTATION_07", 4);
 DO_CHOICE("PRESENTATION_07",   "",
     [

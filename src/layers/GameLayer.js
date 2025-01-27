@@ -1,6 +1,6 @@
 
 
-class TestLayer extends Layer
+class GameLayer extends Layer
 {
     constructor()
     {
@@ -8,6 +8,7 @@ class TestLayer extends Layer
 
         this.frogY = this.height * .55;
 
+        this.soothsaying = new Soothsaying(this);
         this.dialoguePlayer = new DialoguePlayer(this);
 
         this.sprTable = new Sprite(res.spr_table);

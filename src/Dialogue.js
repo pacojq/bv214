@@ -1,7 +1,8 @@
 
 
 var nodeMap = new Map();
-var entryNodeId = "SHORTCUT"; //"ENTRY";
+//var entryNodeId = "SHORTCUT";
+var entryNodeId = "ENTRY";
 
 function DO_TEXT(id, text, nextNodeId, faceIndex = 0)
 {
@@ -33,7 +34,7 @@ function GetDialogueNode(nodeId)
     return nodeMap.get(nodeId);
 }
 
-DO_EVENT("SHORTCUT", "INTRO_END", null, "CHOICE_SIGN_00");
+//DO_EVENT("SHORTCUT", "INTRO_END", null, "CHOICE_SOCCER_00");
 
 
 
@@ -93,21 +94,21 @@ DO_TEXT("PRESENTATION_11",  "bueno, se acabó la charla."            + '\n' +
 // astral sign
 
 DO_TEXT("CHOICE_SIGN_00",     "necesito que me digas...",           "CHOICE_SIGN_01");
-DO_TEXT("CHOICE_SIGN_01",     "¿cuál es tu signo astral?",          "CHOICE_SIGN_02");
+DO_TEXT("CHOICE_SIGN_01",     "¿cuál es tu signo astral?",          "CHOICE_SIGN_02", 1);
 DO_CHOICE("CHOICE_SIGN_02",   "",
     [
-    new ChoiceOption(   "aries",             "CHOICE_ARIES"),
-    new ChoiceOption(   "tauro",             "CHOICE_TAURUS"),
-    new ChoiceOption(   "géminis",             "CHOICE_GEMINI"),
-    new ChoiceOption(   "cáncer",             "CHOICE_CANCER"),
-    new ChoiceOption(   "leo",          "CHOICE_LEO"),
+    new ChoiceOption(   "aries",          "CHOICE_ARIES"),
+    new ChoiceOption(   "tauro",          "CHOICE_TAURUS"),
+    new ChoiceOption(   "géminis",        "CHOICE_GEMINI"),
+    new ChoiceOption(   "cáncer",         "CHOICE_CANCER"),
+    new ChoiceOption(   "leo",            "CHOICE_LEO"),
     new ChoiceOption(   "virgo",          "CHOICE_VIRGO"),
     new ChoiceOption(   "libra",          "CHOICE_LIBRA"),
-    new ChoiceOption(   "escorpio",          "CHOICE_SCORPIO"),
-    new ChoiceOption(   "sagitario",          "CHOICE_SAGITTARIUS"),
-    new ChoiceOption(   "capricornio",          "CHOICE_CAPRICORN"),
-    new ChoiceOption(   "acuario",          "CHOICE_AQUARIUS"),
-    new ChoiceOption(   "pisces",          "CHOICE_PISCES"),
+    new ChoiceOption(   "escorpio",       "CHOICE_SCORPIO"),
+    new ChoiceOption(   "sagitario",      "CHOICE_SAGITTARIUS"),
+    new ChoiceOption(   "capricornio",    "CHOICE_CAPRICORN"),
+    new ChoiceOption(   "acuario",        "CHOICE_AQUARIUS"),
+    new ChoiceOption(   "pisces",         "CHOICE_PISCES"),
     ]);
 DO_EVENT("CHOICE_ARIES",       "CHOICE_SIGN", { sign: "ARIES"},       "CHOICE_SIGN_03");
 DO_EVENT("CHOICE_TAURUS",      "CHOICE_SIGN", { sign: "TAURUS"},      "CHOICE_SIGN_03");
@@ -123,29 +124,98 @@ DO_EVENT("CHOICE_AQUARIUS",    "CHOICE_SIGN", { sign: "AQUARIUS"},    "CHOICE_SI
 DO_EVENT("CHOICE_PISCES",      "CHOICE_SIGN", { sign: "PISCES"},      "CHOICE_SIGN_03");
 
 DO_TEXT("CHOICE_SIGN_03",       "bien, bien...",                    "CHOICE_SIGN_04");
-DO_TEXT("CHOICE_SIGN_04",       "(por supuesto, yo ya lo sabía)",   "CHOICE_SIGN_05");
+DO_TEXT("CHOICE_SIGN_04",       "(por supuesto, yo ya lo sabía)",   "CHOICE_SIGN_05", 1);
 DO_TEXT("CHOICE_SIGN_05",       "(solo intento hacerte"             + '\n' +
                                 "sentir partícipe)",                "CHOICE_SIGN_06");
 DO_TEXT("CHOICE_SIGN_06",       "acorde a tu signo ascendente,"     + '\n' +
-                                "recurriremos a este amuleto:",     "CHOICE_SIGN_SHOW");
-DO_EVENT("CHOICE_SIGN_SHOW",    "SHOW_ITEM", { index: 0 },          "CHOICE_SIGN_07");
+                                "recurriremos a este amuleto:",     "CHOICE_SIGN_SHOW", 4);
+DO_EVENT("CHOICE_SIGN_SHOW",    "SHOW_ITEM", { index: 0 },          "CHOICE_SOCCER_00");
+
+
+// soccer
+
+DO_TEXT("CHOICE_SOCCER_00",     "de acuerdo, a continuación"        + '\n' +
+                                "vamos a ver si tienes algo de"     + '\n' +
+                                "adivina tú también...",            "CHOICE_SOCCER_01");
+DO_TEXT("CHOICE_SOCCER_01",     "Getafe - Real Sociedad"            + '\n' +
+                                "peinsa rápido.",                   "CHOICE_SOCCER_02", 2);
+DO_CHOICE("CHOICE_SOCCER_02",   "",
+    [
+    new ChoiceOption("1",           "CHOICE_SOCCER_03"),
+    new ChoiceOption("x",           "CHOICE_SOCCER_04"),
+    new ChoiceOption("2",           "CHOICE_SOCCER_05")
+    ]);
+DO_EVENT("CHOICE_SOCCER_03",    "CHOICE_SIGN", { sign: "SCORPIO"},  "CHOICE_SOCCER_06");
+DO_EVENT("CHOICE_SOCCER_04",    "CHOICE_SIGN", { sign: "LIBRA"},    "CHOICE_SOCCER_06");
+DO_EVENT("CHOICE_SOCCER_05",    "CHOICE_SIGN", { sign: "PISCES"},   "CHOICE_SOCCER_06");
+DO_TEXT("CHOICE_SOCCER_06",     "ya veo, ya...",                    "CHOICE_SOCCER_07", 3);
+DO_TEXT("CHOICE_SOCCER_07",     "pues este amuleto pa la saca.",    "CHOICE_SOCCER_SHOW");
+DO_EVENT("CHOICE_SOCCER_SHOW",  "SHOW_ITEM",   { index: 1 },        "CHOICE_BEE_00");
+
+
+// bee
+
+DO_TEXT("CHOICE_BEE_00",    "bueno, sigamos. ahora"                 + '\n' +
+                            "quiero que hagas un ejercicio"         + '\n' +
+                            "de imaginación:",                      "CHOICE_BEE_01");
+DO_TEXT("CHOICE_BEE_01",    "imagina una abeja yendo a su"          + '\n' +
+                            "bola por ahí en el bosque...",         "CHOICE_BEE_02", 4);
+DO_TEXT("CHOICE_BEE_02",    "y, a todas estas, decide"             + '\n' +
+                            "posarse sobre una flor"                + '\n' +
+                            "a descansar un poco.",                 "CHOICE_BEE_03");
+DO_TEXT("CHOICE_BEE_03",    "¿de qué color es esa flor?",           "CHOICE_BEE_04", 2);
+DO_CHOICE("CHOICE_BEE_04",   "",
+    [
+    new ChoiceOption("blanca",           "CHOICE_BEE_RANDOM"),
+    new ChoiceOption("roja",             "CHOICE_BEE_RANDOM"),
+    new ChoiceOption("amarilla",         "CHOICE_BEE_YELLOW"),
+    new ChoiceOption("azul",             "CHOICE_BEE_RANDOM"),
+    new ChoiceOption("violeta",          "CHOICE_BEE_RANDOM")
+    ]);
+DO_EVENT("CHOICE_BEE_YELLOW",    "CHOICE_SIGN", { sign: "VIRGO"},   "CHOICE_BEE_05");
+DO_EVENT("CHOICE_BEE_RANDOM",    "CHOICE_SIGN", { sign: "RANDOM"},  "CHOICE_BEE_05");
+DO_TEXT("CHOICE_BEE_05",     "bien, un amuleto más.",               "CHOICE_BEE_SHOW");
+DO_EVENT("CHOICE_BEE_SHOW",  "SHOW_ITEM",   { index: 2 },           "CHOICE_ACTOR_00");
 
 
 // actor
 
 DO_TEXT("CHOICE_ACTOR_00",     "y por último...",                   "CHOICE_ACTOR_01");
-DO_TEXT("CHOICE_ACTOR_01",     "¿Paul Mescal o Pedro Pascal?",      "CHOICE_ACTOR_02");
+DO_TEXT("CHOICE_ACTOR_01",     "¿Paul Mescal o Pedro Pascal?",      "CHOICE_ACTOR_02", 1);
 DO_CHOICE("CHOICE_ACTOR_02",   "",
     [
     new ChoiceOption(   "Paul Mescal",                              "CHOICE_ACTOR_03"),
-    new ChoiceOption(   "Pedro Pascal?",                            "CHOICE_ACTOR_03")
+    new ChoiceOption(   "Pedro Pascal",                             "CHOICE_ACTOR_03")
     ]);
- DO_TEXT("CHOICE_ACTOR_03",     "vaya...",                          "CHOICE_ACTOR_04", 3);
- DO_TEXT("CHOICE_ACTOR_04",     "sinceramente, esta era solo"       + '\n' +
-                                "por curiosidad.",                  "TODO", 4);
+DO_TEXT("CHOICE_ACTOR_03",     "vaya...",                           "CHOICE_ACTOR_04", 3);
+DO_TEXT("CHOICE_ACTOR_04",     "sinceramente, esta era solo"        + '\n' +
+                               "por curiosidad.",                   "THROW_00", 4);
 
 
-// TODO: all the content
+// throw items
+
+DO_TEXT("THROW_00",     "pues ha llegado la hora...",               "THROW_01");
+DO_TEXT("THROW_01",     "...de lanzar los amuletos y"               + '\n' +
+                        "leer qué te depara la fortuna.",           "THROW_02");
+DO_TEXT("THROW_02",     "¿lista?",                                  "THROW_03", 4);
+DO_CHOICE("THROW_03",   "",
+    [
+    new ChoiceOption(   "haz los honores",                          "THROW_04"),
+    new ChoiceOption(   "no estoy preparada",                       "THROW_05")
+    ]);
+DO_TEXT("THROW_04",     "no se hable más, entonces.",               "THROW_06", 2);
+DO_TEXT("THROW_05",     "haber estudiao.",                          "THROW_06", 1);
+DO_TEXT("THROW_06",     "allá vamos.",                              "THROW_07");
+DO_EVENT("THROW_07",    "THROW_ITEMS", null,                        "THROW_08");
+DO_TEXT("THROW_08",     "veamos qué vaticinan los amuletos...",     "PREDICTIONS_00");
+
+
+// predictions
+
+DO_TEXT("PREDICTIONS_00",     "TODO",     "TODO");
+// TODO
+
+
 
 // ending
 

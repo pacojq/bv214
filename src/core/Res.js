@@ -30,7 +30,8 @@ var res =
     spr_item_aquarius     : "res/Item_Aquarius.png",
     spr_item_pisces       : "res/Item_Pisces.png",
 
-    spr_ui_panel : "res/UI_Panel.png",
+    spr_ui_panel  : "res/UI_Panel.png",
+    spr_ui_splash : "res/UI_Splash.png",
 
     spr_ui_waiting0 : "res/UI_Loading00.png",
     spr_ui_waiting1 : "res/UI_Loading01.png",

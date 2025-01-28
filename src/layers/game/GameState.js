@@ -298,10 +298,8 @@ class GameStateChoice extends GameState
         if (input.hasClick)
         {
             let pos = input.clickPosition;
-            console.error(pos);
             pos.x *= this.layer.width;
             pos.y *= this.layer.height;
-            console.error(pos);
 
             for (let i = this.options.length-1; i >= 0; i--)
             {
@@ -362,6 +360,11 @@ class GameStateShowToken extends GameState
 
         this.uiWaiting = new UiComponentWaiting();
         this.uiWaiting.showWaitingCountdown = 1.2;
+
+        this.sprSplash = new Sprite(res.spr_ui_splash);
+        this.sprSplash.xScale = 0.4;
+        this.sprSplash.yScale = 0.4;
+        this.sprSplash.alpha = 0.0;
     }
 
     isReady() { return (Math.abs(this.ySprite - this.yTarget) < 0.1) && (Math.abs(this.yVelocity) < 0.1); }
@@ -384,7 +387,7 @@ class GameStateShowToken extends GameState
 
     drawGUI()
     {
-        drawRect(-1, -1, this.layer.width+1, this.layer.height+1, "rgba(0, 0, 0, 0.65)", true);
+        drawRect(-1, -1, this.layer.width+1, this.layer.height+1, "rgba(0, 0, 0, 0.75)", true);
 
         let x = this.layer.width/2.0;
         let yText = this.layer.height * 0.15;
@@ -395,6 +398,11 @@ class GameStateShowToken extends GameState
         drawText(x, yText, this.token.name, "center", 26);
         
         // Draw sprite
+
+        this.sprSplash.alpha += 2.4 * DeltaTime;
+        this.sprSplash.alpha = Math.min(this.sprSplash.alpha, 0.95);
+        this.sprSplash.draw(x, this.yTarget);
+
         this.token.sprite.xScale = 0.5;
         this.token.sprite.yScale = 0.5;
         this.token.sprite.draw(x, this.ySprite);

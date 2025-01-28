@@ -56,7 +56,7 @@ class DialoguePlayer
 
     _choiceNodeCallback(option)
     {
-        console.warn(option);
+        //console.warn(option);
         this.advanceNodeId(option.nextNodeId);
     }
 
@@ -94,12 +94,18 @@ class DialoguePlayer
 
             case "SHOW_ITEM":
             {
+                let index = Math.min(node.payload.index, this.layer.soothsaying.itemCount()-1);
                 let state = new GameStateShowToken(
                     this.layer,
-                    node.payload.index,
+                    index,
                     this.advanceNode.bind(this));
                 this.layer.setState(state);
                 break;
+            }
+
+            case "THROW_ITEMS":
+            {
+                // TODO
             }
 
             case "GAME_END":

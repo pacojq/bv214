@@ -40,16 +40,23 @@ class Soothsaying
         }
     }
 
+    itemCount() { return this.items.length; }
+
     pushItem(itemId)
     {
-        if (itemId == "RANDOM")
+        console.log("pushing item");
+        if (itemId == "RANDOM" || !this.openMap.has(itemId))
         {
-            itemId = choose(this.openMap.keys);
+            let temp = [];
+            this.openMap.keys().forEach(e => { temp.push(e); });
+            itemId = temp[irandom(temp.length)];
             console.warn("random itemId: '" + itemId + "'");
         }
+
         let item = this.openMap.get(itemId);
+        console.log(item);
         this.openMap.delete(itemId);
-        return this.items.push(item)
+        this.items.push(item);
     }
 
     getItem(index)

@@ -34,7 +34,7 @@ function GetDialogueNode(nodeId)
     return nodeMap.get(nodeId);
 }
 
-//DO_EVENT("SHORTCUT", "INTRO_END", null, "CHOICE_SOCCER_00");
+//DO_EVENT("SHORTCUT", "INTRO_END", null, "CHOICE_LOL_00");
 
 
 
@@ -129,28 +129,32 @@ DO_TEXT("CHOICE_SIGN_05",       "(solo intento hacerte"             + '\n' +
                                 "sentir partícipe)",                "CHOICE_SIGN_06");
 DO_TEXT("CHOICE_SIGN_06",       "acorde a tu signo ascendente,"     + '\n' +
                                 "recurriremos a este amuleto:",     "CHOICE_SIGN_SHOW", 4);
-DO_EVENT("CHOICE_SIGN_SHOW",    "SHOW_ITEM", { index: 0 },          "CHOICE_SOCCER_00");
+DO_EVENT("CHOICE_SIGN_SHOW",    "SHOW_ITEM", { index: 0 },          "CHOICE_LOL_00");
 
 
-// soccer
+// league of legends
 
-DO_TEXT("CHOICE_SOCCER_00",     "de acuerdo, a continuación"        + '\n' +
-                                "vamos a ver si tienes algo de"     + '\n' +
-                                "adivina tú también...",            "CHOICE_SOCCER_01");
-DO_TEXT("CHOICE_SOCCER_01",     "Getafe - Real Sociedad"            + '\n' +
-                                "peinsa rápido.",                   "CHOICE_SOCCER_02", 2);
-DO_CHOICE("CHOICE_SOCCER_02",   "",
+DO_TEXT("CHOICE_LOL_00",        "de acuerdo, a continuación"        + '\n' +
+                                "una pregunta de reflejos.",        "CHOICE_LOL_01");
+DO_TEXT("CHOICE_LOL_01",        "necesito que respondas rápido,"    + '\n' +
+                                "lo primero que te venga,"           + '\n' +
+                                "sin pensar.",                      "CHOICE_LOL_02", 4);
+DO_TEXT("CHOICE_LOL_02",        "...",                              "CHOICE_LOL_03");
+DO_TEXT("CHOICE_LOL_03",        "elige línea. YA!",                 "CHOICE_LOL_04", 2);
+DO_CHOICE("CHOICE_LOL_04",      "",
     [
-    new ChoiceOption("1",           "CHOICE_SOCCER_03"),
-    new ChoiceOption("x",           "CHOICE_SOCCER_04"),
-    new ChoiceOption("2",           "CHOICE_SOCCER_05")
+    new ChoiceOption("top",                         "CHOICE_LOL_05"),
+    new ChoiceOption("mid",                         "CHOICE_LOL_06"),
+    new ChoiceOption("bottom",                      "CHOICE_LOL_07"),
+    new ChoiceOption("al tomar por culo. jungla.",  "CHOICE_LOL_08")
     ]);
-DO_EVENT("CHOICE_SOCCER_03",    "CHOICE_SIGN", { sign: "SCORPIO"},  "CHOICE_SOCCER_06");
-DO_EVENT("CHOICE_SOCCER_04",    "CHOICE_SIGN", { sign: "LIBRA"},    "CHOICE_SOCCER_06");
-DO_EVENT("CHOICE_SOCCER_05",    "CHOICE_SIGN", { sign: "PISCES"},   "CHOICE_SOCCER_06");
-DO_TEXT("CHOICE_SOCCER_06",     "ya veo, ya...",                    "CHOICE_SOCCER_07", 3);
-DO_TEXT("CHOICE_SOCCER_07",     "pues este amuleto pa la saca.",    "CHOICE_SOCCER_SHOW");
-DO_EVENT("CHOICE_SOCCER_SHOW",  "SHOW_ITEM",   { index: 1 },        "CHOICE_BEE_00");
+DO_EVENT("CHOICE_LOL_05",    "CHOICE_SIGN", { sign: "LEO"},         "CHOICE_LOL_09");
+DO_EVENT("CHOICE_LOL_06",    "CHOICE_SIGN", { sign: "LIBRA"},       "CHOICE_LOL_09");
+DO_EVENT("CHOICE_LOL_07",    "CHOICE_SIGN", { sign: "PISCES"},      "CHOICE_LOL_09");
+DO_EVENT("CHOICE_LOL_08",    "CHOICE_SIGN", { sign: "SCORPIO"},     "CHOICE_LOL_09");
+DO_TEXT("CHOICE_LOL_09",     "ya veo, ya...",                       "CHOICE_LOL_10", 3);
+DO_TEXT("CHOICE_LOL_10",     "pues este amuleto pa la saca.",       "CHOICE_LOL_SHOW");
+DO_EVENT("CHOICE_LOL_SHOW",  "SHOW_ITEM",   { index: 1 },           "CHOICE_BEE_00");
 
 
 // bee

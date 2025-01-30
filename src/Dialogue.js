@@ -34,7 +34,7 @@ function GetDialogueNode(nodeId)
     return nodeMap.get(nodeId);
 }
 
-//DO_EVENT("SHORTCUT", "INTRO_END", null, "ENDING_04");
+//DO_EVENT("SHORTCUT", "INTRO_END", null, "ENDING_16");
 //DO_EVENT("SHORTCUT_01",    "CHOICE_SIGN", { sign: "RANDOM"},  "SHORTCUT_02");
 //DO_EVENT("SHORTCUT_02",    "CHOICE_SIGN", { sign: "RANDOM"},  "SHORTCUT_03");
 //DO_EVENT("SHORTCUT_03",    "CHOICE_SIGN", { sign: "RANDOM"},  "THROW_06");
@@ -312,8 +312,6 @@ DO_TEXT("ENDING_15B",   "will you be his"                           + '\n' +
 DO_TEXT("ENDING_16",    "sea lo que decidas, aprovecha"             + '\n' +
                         "ahora para mandarle un mensaje,"           + '\n' +
                         "y le dices qué tal.",                      "ENDING_17");
-DO_WAIT("ENDING_17", 1.2,                                           "ENDING_18");
-DO_TEXT("ENDING_18",    "...y dile que me debe un bizum.",          "GAME_END", 1);
+DO_WAIT("ENDING_17", 1.2,                                           "GAME_END");
 
 DO_EVENT("GAME_END", "GAME_END", null,                              "_");
-// TODO: end the game

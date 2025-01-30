@@ -97,7 +97,7 @@ class GameStateIntroEnd extends GameState
     }
 }
 
-class GameStateFrogTalking extends GameState
+class BaseGameStateFrogTalking extends GameState
 {
     constructor(layer, text, callback)
     {
@@ -110,9 +110,6 @@ class GameStateFrogTalking extends GameState
 
         this.shownIndex = 0;
         this.targetIndex = 0;
-
-        this.uiWaiting = new UiComponentWaiting(layer);
-        this.uiWaiting.showWaitingCountdown = 1.2;
     }
 
     update()
@@ -143,6 +140,42 @@ class GameStateFrogTalking extends GameState
                 this.shownLines[this.lineIndex] += this.text[this.shownIndex-1];
             }
         }
+    }
+
+    drawGUI()
+    {
+        let x = this.layer.width/2.0;
+        let yText = this.layer.height * 0.15;
+
+        // Draw text
+        let color = this.layer.lighting.isVisible
+            ? "rgb(225, 193, 104)" // light
+            : "rgb(45, 6, 41)"; // dark
+        drawSetColor(color);
+
+        for (let line = 0; line < this.shownLines.length; line++)
+        {
+            drawText(x, yText, this.shownLines[line], "center", 20);
+            yText += 24;
+        }
+        drawResetColor();
+    }
+}
+
+class GameStateFrogTalking extends BaseGameStateFrogTalking
+{
+    constructor(layer, text, callback)
+    {
+        super(layer, text, callback);
+        this.uiWaiting = new UiComponentWaiting(layer);
+        this.uiWaiting.showWaitingCountdown = 1.2;
+    }
+
+    update()
+    {
+        super.update();
+
+        let maxIndex = this.text.length;
 
         if (this.shownIndex >= maxIndex)
         {
@@ -160,25 +193,13 @@ class GameStateFrogTalking extends GameState
 
     drawGUI()
     {
+        super.drawGUI();
+
         let maxIndex = this.text.length;
         let x = this.layer.width/2.0;
-        let yText = this.layer.height * 0.15;
         let yWait = this.layer.height * 0.85;
 
-        // Draw text
-        let color = this.layer.lighting.isVisible
-            ? "rgb(225, 193, 104)" // light
-            : "rgb(45, 6, 41)"; // dark
-        drawSetColor(color);
-
-        for (let line = 0; line < this.shownLines.length; line++)
-        {
-            drawText(x, yText, this.shownLines[line], "center", 20);
-            yText += 24;
-        }
-        drawResetColor();
-
-        // Draw waiting dots
+        // Draw waiting text
         if (this.shownIndex >= maxIndex)
         {
             this.uiWaiting.x = x;
@@ -452,5 +473,14 @@ class GameStateThrowingTokens extends GameState
                 return;
         }
         this.callback();
+    }
+}
+
+class GameStateEnd extends BaseGameStateFrogTalking
+{
+    constructor(layer)
+    {
+        const text = "...y dile que me debe un bizum.";
+        super(layer, text, () => {});
     }
 }

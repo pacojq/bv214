@@ -34,9 +34,14 @@ function chance(x)
     return random() <= x;
 }
 
-function random()
+function random(x)
 {
-    return Math.random();
+    return x * Math.random();
+}
+
+function randomSign()
+{
+    return Math.random() < 0.5 ? -1.0 : 1.0;
 }
 
 function irandom(x)
@@ -50,7 +55,7 @@ function randomRange(min, max)
 {
     if (max < min)
         return min;
-    return min + irandom(max-min);
+    return min + random(max-min);
 }
 
 function choose(args)

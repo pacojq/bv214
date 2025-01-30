@@ -34,7 +34,10 @@ function GetDialogueNode(nodeId)
     return nodeMap.get(nodeId);
 }
 
-//DO_EVENT("SHORTCUT", "INTRO_END", null, "CHOICE_LOL_00");
+//DO_EVENT("SHORTCUT", "INTRO_END", null, "ENDING_00");
+//DO_EVENT("SHORTCUT_01",    "CHOICE_SIGN", { sign: "RANDOM"},  "SHORTCUT_02");
+//DO_EVENT("SHORTCUT_02",    "CHOICE_SIGN", { sign: "RANDOM"},  "SHORTCUT_03");
+//DO_EVENT("SHORTCUT_03",    "CHOICE_SIGN", { sign: "RANDOM"},  "THROW_06");
 
 
 
@@ -209,62 +212,111 @@ DO_CHOICE("THROW_03",   "",
     ]);
 DO_TEXT("THROW_04",     "no se hable más, entonces.",               "THROW_06", 2);
 DO_TEXT("THROW_05",     "haber estudiao.",                          "THROW_06", 1);
-DO_TEXT("THROW_06",     "allá vamos.",                              "THROW_07");
+DO_TEXT("THROW_06",     "allá vamos.",                              "THROW_07", 2);
 DO_EVENT("THROW_07",    "THROW_ITEMS", null,                        "THROW_08");
-DO_TEXT("THROW_08",     "veamos qué vaticinan los amuletos...",     "PREDICTIONS_00");
+DO_WAIT("THROW_08", 1.8,                                            "THROW_09");
+DO_TEXT("THROW_09",     "veamos qué auguran"                        + '\n' +
+                        "los amuletos...",                          "PREDICTIONS_00", 1);
 
 
 // predictions
 
-DO_TEXT("PREDICTIONS_00",     "TODO",     "TODO");
-// TODO
-
+DO_TEXT("PREDICTIONS_00",   "hm... interesante...",                 "PREDICTIONS_01", 2);
+DO_CHOICE("PREDICTIONS_01", " ",
+    [
+    new ChoiceOption(   "...",                                  "PREDICTIONS_02"),
+    new ChoiceOption(   "explica. ya.",                         "PREDICTIONS_02")
+    ]);
+DO_TEXT("PREDICTIONS_02",   "el futuro que muestran"                + '\n' +
+                            "es cercano...",                        "PREDICTIONS_03");
+DO_TEXT("PREDICTIONS_03",   "MUY cercano.",                         "PREDICTIONS_04", 3);
+DO_TEXT("PREDICTIONS_04",   "este viernes.",                        "PREDICTIONS_05");
+DO_CHOICE("PREDICTIONS_05", " ",
+    [
+    new ChoiceOption(   "ahá.",                                     "PREDICTIONS_06"),
+    new ChoiceOption(   "¿qué más?",                                "PREDICTIONS_06")
+    ]);
+DO_TEXT("PREDICTIONS_06",   "hay algo de fondo..."                  + '\n' +
+                            "parece...",                            "PREDICTIONS_07");
+DO_TEXT("PREDICTIONS_07",   "una película.",                        "PREDICTIONS_08", 1);
+DO_CHOICE("PREDICTIONS_08", " ",
+    [
+    new ChoiceOption(   "un thriller",                              "PREDICTIONS_09"),
+    new ChoiceOption(   "de animación",                             "PREDICTIONS_09"),
+    new ChoiceOption(   "de fantasía",                              "PREDICTIONS_09"),
+    ]);
+DO_TEXT("PREDICTIONS_09",   "para nada.",                           "PREDICTIONS_10");
+DO_TEXT("PREDICTIONS_10",   "no es nada menos que una"              + '\n' +
+                            "comedia romántica.",                   "PREDICTIONS_11");
+DO_TEXT("PREDICTIONS_11",   "y de las cursis.",                     "PREDICTIONS_12", 3);
+DO_TEXT("PREDICTIONS_12",   "...pero tiene algo que"                + '\n' +
+                            "la mejora bastante.",                  "PREDICTIONS_13", 4);
+DO_CHOICE("PREDICTIONS_13", " ",
+    [
+    new ChoiceOption(   "de los early 00s",                         "PREDICTIONS_14"),
+    new ChoiceOption(   "Matthew McConaughey",                      "PREDICTIONS_14"),
+    new ChoiceOption(   "mueren todos",                             "PREDICTIONS_14"),
+    ]);
+DO_TEXT("PREDICTIONS_14",   "nope. nada de eso.",                   "PREDICTIONS_15", 1);
+DO_WAIT("PREDICTIONS_15", 0.9,                                      "PREDICTIONS_16");
+DO_TEXT("PREDICTIONS_16",   "resulta que... la estás"               + '\n' +
+                            "viendo con otra persona.",             "PREDICTIONS_17");
+DO_WAIT("PREDICTIONS_17", 0.9,                                      "PREDICTIONS_18");
+DO_CHOICE("PREDICTIONS_18", "",
+    [
+    new ChoiceOption(   "hm... ¿seguro?",                           "ENDING_00"),
+    new ChoiceOption(   "demasiado detalle, ¿no?",                  "ENDING_00")
+    ]);
 
 
 // ending
 
-DO_TEXT("ENDING_00",    "...",                                      "ENDING_01");
-DO_TEXT("ENDING_01",    "vale, no te voy a mentir.",                "ENDING_02");
-DO_TEXT("ENDING_02",    "lo que te he dicho no es del todo"         + '\n' +
-                        "lo que muestran los amuletos...",          "ENDING_03");
-DO_TEXT("ENDING_03",    "...porque hay una persona que me ha"       + '\n' +
-                        "pedido que hasí lo haga.",                 "ENDING_04");
+DO_TEXT("ENDING_00",    "...",                                      "ENDING_01", 2);
+DO_TEXT("ENDING_01",    "vale, no te voy a mentir.",                "ENDING_02", 1);
+DO_TEXT("ENDING_02",    "todo este cuento no es"                    + '\n' +
+                        "del todo lo que muestran"                  + '\n' +
+                        "los amuletos...",                          "ENDING_03", 4);
+DO_TEXT("ENDING_03",    "...porque alguien me ha pedido"            + '\n' +
+                        "que te cuente una versión..."              + '\n' +
+                        "personalizada.",                           "ENDING_04");
 DO_TEXT("ENDING_04",    "mira, no sé, el chaval parecía"            + '\n' +
-                        "ilusionao, ¿vale?",                        "ENDING_05");
-DO_TEXT("ENDING_05",    "le ha dedicado un domingo entero a"        + '\n' +
-                        "hacer rollo una carta o no sé qué"         + '\n' +
-                        "pa pedir una cita. Completamente"          + '\n' +
-                        "teenager, vamos.",                         "ENDING_06");
+                        "ilusionao, ¿vale?",                        "ENDING_05A", 4);
+DO_TEXT("ENDING_05A",   "le ha dedicado un domingo entero"          + '\n' +
+                        "a hacer una especie de carta"              + '\n' +
+                        "jugable o yo qué sé."                      + '\n' +
+                        "solo pa pedir una cita.",                  "ENDING_05B");
+DO_TEXT("ENDING_05B",   "completamente teenager, vamos.",           "ENDING_06", 1);
 DO_TEXT("ENDING_06",    "total, que al final me convenció.",        "ENDING_07");
 DO_WAIT("ENDING_07", 1.0,                                           "ENDING_08");
-DO_TEXT("ENDING_08",    "(encima me ha prometido darme un"          + '\n' +
-                        "tupper con pasta boloñesa si esto"         + '\n' +
-                        "salía bien)",                              "ENDING_09");
-DO_CHOICE("ENDING_09",  "", 
+DO_TEXT("ENDING_08",    "(encima me ha prometido darme"             + '\n' +
+                        "un tupper con pasta boloñesa"              + '\n' +
+                        "si esto salía bien)",                      "ENDING_09", 3);
+DO_CHOICE("ENDING_09",  " ", 
     [
     new ChoiceOption(   "la madre que lo parió",                    "ENDING_10"),
     new ChoiceOption(   "...",                                      "ENDING_11")
     ]);
 DO_TEXT("ENDING_10",    "lo que habrá tenido que aguantar,"         + '\n' +
-                        "pobre mujer.",                             "ENDING_11");
+                        "pobre mujer.",                             "ENDING_11", 4);
 DO_TEXT("ENDING_11",    "lo cierto es que... al final,"             + '\n' +
                         "eres tú quien decide qué va"               + '\n' +
                         "a hacer el viernes.",                      "ENDING_12");
 DO_TEXT("ENDING_12",    "porque total, el pavo estará"              + '\n' +
-                        "contento viendo una peli contigo,"         + '\n' +
-                        "tanto si es el día de San Valentín,"       + '\n' +
-                        "como si es el anterior",                   "ENDING_13");
-DO_TEXT("ENDING_13",    "...que es San Benigno y a nadie"           + '\n' +
-                        "le importa.",                              "ENDING_14");
-DO_WAIT("ENDING_14", 1.0,                                           "ENDING_15");
-DO_TEXT("ENDING_15",    "así que en fin, como dice"                 + '\n' +
-                        "Kelly el Metralletas..."                   + '\n' +
-                        "will you be his bloody valentine?",        "ENDING_16");
-DO_TEXT("ENDING_16",    "decidas lo que decidas, aprovecha"         + '\n' +
+                        "feliz viendo una peli contigo,"            + '\n' +
+                        "ya sea el día de San Valentín,"            + '\n' +
+                        "como si es el anterior",                   "ENDING_13", 4);
+DO_TEXT("ENDING_13",    "...que es San Benigno"                     + '\n' +
+                        "y a nadie le importa.",                    "ENDING_14", 3);
+DO_WAIT("ENDING_14", 0.5,                                           "ENDING_15A");
+DO_TEXT("ENDING_15A",   "así que en fin, como dice"                 + '\n' +
+                        "Kelly el Metralletas...",                  "ENDING_15B", 1);
+DO_TEXT("ENDING_15B",   "will you be his"                           + '\n' +
+                        "bloody valentine?",                        "ENDING_16");
+DO_TEXT("ENDING_16",    "sea lo que decidas, aprovecha"             + '\n' +
                         "ahora para mandarle un mensaje,"           + '\n' +
                         "y le dices qué tal.",                      "ENDING_17");
-DO_WAIT("ENDING_17", 3.0,                                           "ENDING_18");
-DO_TEXT("ENDING_18",    "...y dile que me debe un bizum.",          "GAME_END");
+DO_WAIT("ENDING_17", 1.2,                                           "ENDING_18");
+DO_TEXT("ENDING_18",    "...y dile que me debe un bizum.",          "GAME_END", 1);
 
 DO_EVENT("GAME_END", "GAME_END", null,                              "_");
 // TODO: end the game

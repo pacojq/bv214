@@ -8,6 +8,7 @@ class GameState
 
     onEnter() {}
     update() {}
+    draw() {}
     drawGUI() {}
 }
 
@@ -433,5 +434,34 @@ class GameStateShowToken extends GameState
 
 class GameStateThrowingTokens extends GameState
 {
-    
+    constructor(layer, callback)
+    {
+        super(callback);
+        this.layer = layer;
+        this.tokens = [];
+
+        let x = layer.width/2;
+        let y = layer.height * .6;
+        let sign = randomSign();
+        for (let i = 0; i < 3; i++)
+        {
+            let item = layer.soothsaying.getItem(i);
+            let xTarget = x + sign * randomRange(layer.width * .03, layer.width * .2);
+            let yTarget = y + layer.height * randomRange(.02, .1);
+            let token = layer.entityCreate(x, y, new TokenEntity(item, xTarget, yTarget));
+            this.tokens.push(token);
+
+            sign = -sign;
+        }
+    }
+
+    update()
+    {
+        for (let i = 0; i < 3; i++)
+        {
+            if (!this.tokens[i].isReady)
+                return;
+        }
+        this.callback();
+    }
 }

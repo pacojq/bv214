@@ -105,7 +105,11 @@ class DialoguePlayer
 
             case "THROW_ITEMS":
             {
-                // TODO
+                let state = new GameStateThrowingTokens(
+                    this.layer,
+                    this.advanceNode.bind(this));
+                this.layer.setState(state);
+                break;
             }
 
             case "GAME_END":

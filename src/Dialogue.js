@@ -34,7 +34,7 @@ function GetDialogueNode(nodeId)
     return nodeMap.get(nodeId);
 }
 
-//DO_EVENT("SHORTCUT", "INTRO_END", null, "ENDING_00");
+//DO_EVENT("SHORTCUT", "INTRO_END", null, "ENDING_04");
 //DO_EVENT("SHORTCUT_01",    "CHOICE_SIGN", { sign: "RANDOM"},  "SHORTCUT_02");
 //DO_EVENT("SHORTCUT_02",    "CHOICE_SIGN", { sign: "RANDOM"},  "SHORTCUT_03");
 //DO_EVENT("SHORTCUT_03",    "CHOICE_SIGN", { sign: "RANDOM"},  "THROW_06");
@@ -60,11 +60,10 @@ DO_TEXT("INTRO_05",     "si es que ya no se ofrece ni un"           + '\n' +
                         "incredulidad. lo que hay que ver.",        "INTRO_06");
 DO_TEXT("INTRO_06",     "en fin.",                                  "INTRO_END");
 DO_TEXT("INTRO_07",     "...",                                      "INTRO_08");
-DO_TEXT("INTRO_08",     "¿es broma, no?",                           "INTRO_09");
-DO_TEXT("INTRO_09",     "a ver, chica, ¿cómo no lo vas"             + '\n' +
-                        "a saber? quiero decir...",                 "INTRO_10");
-DO_TEXT("INTRO_10",     "en fin. ya está. me diré que"              + '\n' +
-                        "intentas vacilarme y ya.",                 "INTRO_END");
+DO_TEXT("INTRO_08",     "a ver, chica, ¿cómo no lo vas"             + '\n' +
+                        "a saber? quiero decir...",                 "INTRO_09");
+DO_TEXT("INTRO_09",     "algo te olerás, digo yo.",                 "INTRO_10");
+DO_TEXT("INTRO_10",     "en fin...",                                "INTRO_END");
 DO_EVENT("INTRO_END", "INTRO_END", null,                            "PRESENTATION_00");
 
 // lights on. presentation.
@@ -215,8 +214,7 @@ DO_TEXT("THROW_05",     "haber estudiao.",                          "THROW_06", 
 DO_TEXT("THROW_06",     "allá vamos.",                              "THROW_07", 2);
 DO_EVENT("THROW_07",    "THROW_ITEMS", null,                        "THROW_08");
 DO_WAIT("THROW_08", 1.8,                                            "THROW_09");
-DO_TEXT("THROW_09",     "veamos qué auguran"                        + '\n' +
-                        "los amuletos...",                          "PREDICTIONS_00", 1);
+DO_TEXT("THROW_09",     "veamos qué auguran...",                    "PREDICTIONS_00", 1);
 
 
 // predictions
@@ -274,23 +272,22 @@ DO_CHOICE("PREDICTIONS_18", "",
 DO_TEXT("ENDING_00",    "...",                                      "ENDING_01", 2);
 DO_TEXT("ENDING_01",    "vale, no te voy a mentir.",                "ENDING_02", 1);
 DO_TEXT("ENDING_02",    "todo este cuento no es"                    + '\n' +
-                        "del todo lo que muestran"                  + '\n' +
-                        "los amuletos...",                          "ENDING_03", 4);
-DO_TEXT("ENDING_03",    "...porque alguien me ha pedido"            + '\n' +
+                        "del todo lo que los amuletos"                  + '\n' +
+                        "muestran...",                              "ENDING_03", 4);
+DO_TEXT("ENDING_03",    "porque alguien me ha pedido"               + '\n' +
                         "que te cuente una versión..."              + '\n' +
-                        "personalizada.",                           "ENDING_04");
+                        "*personalizada*.",                         "ENDING_04");
 DO_TEXT("ENDING_04",    "mira, no sé, el chaval parecía"            + '\n' +
                         "ilusionao, ¿vale?",                        "ENDING_05A", 4);
 DO_TEXT("ENDING_05A",   "le ha dedicado un domingo entero"          + '\n' +
-                        "a hacer una especie de carta"              + '\n' +
-                        "jugable o yo qué sé."                      + '\n' +
-                        "solo pa pedir una cita.",                  "ENDING_05B");
-DO_TEXT("ENDING_05B",   "completamente teenager, vamos.",           "ENDING_06", 1);
+                        "a hacer una movida de carta"               + '\n' +
+                        "jugable o yo qué sé.",                     "ENDING_05B");
+DO_TEXT("ENDING_05B",   "solo pa pedir una cita."                   + '\n' +
+                        "completamente teenager, vamos.",           "ENDING_06", 1);
 DO_TEXT("ENDING_06",    "total, que al final me convenció.",        "ENDING_07");
-DO_WAIT("ENDING_07", 1.0,                                           "ENDING_08");
-DO_TEXT("ENDING_08",    "(encima me ha prometido darme"             + '\n' +
-                        "un tupper con pasta boloñesa"              + '\n' +
-                        "si esto salía bien)",                      "ENDING_09", 3);
+DO_WAIT("ENDING_07", 0.8,                                           "ENDING_08");
+DO_TEXT("ENDING_08",    "(y me prometió un tupper de"               + '\n' +
+                        "pasta boloñesa si esto colaba)",           "ENDING_09", 3);
 DO_CHOICE("ENDING_09",  " ", 
     [
     new ChoiceOption(   "la madre que lo parió",                    "ENDING_10"),

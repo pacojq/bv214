@@ -14,22 +14,16 @@ class GameState
 
 class UiComponentWaiting
 {
-    constructor()
+    constructor(layer)
     {
+        this.layer = layer;
         this.showWaitingCountdown = 1.0;
-
-        this.sprWaitingIndex = 0;
-        this.sprWaitings =
-        [
-            this._createWaitingSprite(res.spr_ui_waiting0),
-            this._createWaitingSprite(res.spr_ui_waiting1),
-            this._createWaitingSprite(res.spr_ui_waiting2),
-            this._createWaitingSprite(res.spr_ui_waiting3)
-        ];
-        this.sprWaitings[0].alpha = 0.0;
 
         this.x = 0;
         this.y = 0;
+        this.alpha = 0;
+        this.fade = 0;
+        this.time = 0;
     }
 
     update()
@@ -39,31 +33,26 @@ class UiComponentWaiting
             this.showWaitingCountdown -= DeltaTime;
 
             let t = Math.min(this.showWaitingCountdown, 1);
-            this.sprWaitings[0].alpha = 1 - Math.max(0, t);
+            this.fade = 1 - Math.max(0, t);
         }
-        else
-        {
-            const WAIT_SPEED = 2.1;
-            this.sprWaitingIndex += DeltaTime * WAIT_SPEED;
-            if (this.sprWaitingIndex >= this.sprWaitings.length)
-            {
-                this.sprWaitingIndex -= this.sprWaitings.length;
-            }
-        }
+
+        const BLINK_SPD = 0.3 * Math.PI;
+        this.time += BLINK_SPD * DeltaTime;
+        this.alpha = Math.cos(this.time);
     }
 
     drawGUI()
     {
-        let sprWaiting = this.sprWaitings[Math.floor(this.sprWaitingIndex)];
-        sprWaiting.draw(this.x, this.y);
-    }
+        let textAlpha = (1 - Math.abs(this.alpha)) * this.fade;
 
-    _createWaitingSprite(filename)
-    {
-        let sprite = new Sprite(filename);
-        sprite.xScale = 0.15;
-        sprite.yScale = 0.15;
-        return sprite;
+        let color = this.layer.lighting.isVisible
+            ? "rgba(211, 207, 196," + textAlpha + ")" // light
+            : "rgba(45, 6, 41," + textAlpha + ")"; // dark
+        drawSetColor(color);
+
+        drawText(this.x, this.y, "(pulsa para continuar)", "center", 20);
+
+        drawResetColor();
     }
 }
 
@@ -122,7 +111,7 @@ class GameStateFrogTalking extends GameState
         this.shownIndex = 0;
         this.targetIndex = 0;
 
-        this.uiWaiting = new UiComponentWaiting();
+        this.uiWaiting = new UiComponentWaiting(layer);
         this.uiWaiting.showWaitingCountdown = 1.2;
     }
 
@@ -130,7 +119,7 @@ class GameStateFrogTalking extends GameState
     {
         super.update();
 
-        const TEXT_SPEED = 21.0; // chars per second
+        const TEXT_SPEED = 39.0; // chars per second
         let textSpd = TEXT_SPEED * (input.hasClick ? 80.0 : 1.0);
         let maxIndex = this.text.length;
         if (this.targetIndex < maxIndex)
@@ -359,7 +348,7 @@ class GameStateShowToken extends GameState
         this.ySprite = this.layer.height + 120;
         this.yVelocity = 0;
 
-        this.uiWaiting = new UiComponentWaiting();
+        this.uiWaiting = new UiComponentWaiting(layer);
         this.uiWaiting.showWaitingCountdown = 1.2;
 
         this.sprSplash = new Sprite(res.spr_ui_splash);

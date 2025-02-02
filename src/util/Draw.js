@@ -56,7 +56,7 @@ function drawRect(x0, y0, x1, y1, col = "black", filled = false, alpha = 1)
  */
 function drawText(x, y, text, textAlign = "left", textSize = 16)
 {
-    const MAX_WIDTH = Math.round(canvas.width * 0.9);
+    const MAX_WIDTH = Math.round(canvas.width * 1.0);
     context.font="" + textSize + "px " + __fontName;
     context.textAlign = textAlign;
     context.fillText(text, x, y, MAX_WIDTH);

@@ -13,7 +13,7 @@ class TokenEntity extends Entity
         this.xTarget = xTarget;
         this.yTarget = yTarget;
         this.scale = 0.05;
-        this.scaleTarget = 0.12;
+        this.scaleTarget = 0.25;
         this.speed = 310;
         this.rotationDir = randomSign();
 

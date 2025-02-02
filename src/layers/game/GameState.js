@@ -414,8 +414,8 @@ class GameStateShowToken extends GameState
         this.sprSplash.alpha = Math.min(this.sprSplash.alpha, 0.95);
         this.sprSplash.draw(x, this.yTarget);
 
-        this.token.sprite.xScale = 0.5;
-        this.token.sprite.yScale = 0.5;
+        this.token.sprite.xScale = 1.0;
+        this.token.sprite.yScale = 1.0;
         this.token.sprite.draw(x, this.ySprite);
 
         // Draw waiting

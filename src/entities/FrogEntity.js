@@ -44,18 +44,10 @@ class FrogEntity extends Entity
         this.sprHat.draw(this.body.x - 3, this.body.y - 102);
     }
 
-    _onCollision(hSign, vSign, other)
-    {
-        console.log("Frog collided with: " + other.name);
-        freezeGame(5); 
-    }
-
     _createBodySprite(filename)
     {
         let spr = new Sprite(filename);
-        spr.xScale = 0.5;
-        spr.yScale = 0.5;
-        spr.setOrigin(310, 340);
+        spr.setOrigin(155, 170);
         return spr;
     }
 

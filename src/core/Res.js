@@ -33,10 +33,9 @@ var res =
     spr_ui_panel  : "res/UI_Panel.png",
     spr_ui_splash : "res/UI_Splash.png",
 
-    spr_ui_waiting0 : "res/UI_Loading00.png",
-    spr_ui_waiting1 : "res/UI_Loading01.png",
-    spr_ui_waiting2 : "res/UI_Loading02.png",
-    spr_ui_waiting3 : "res/UI_Loading03.png"
+    spr_ui_signature_header : "res/Signature_Header.png",
+    spr_ui_signature_footer : "res/Signature_Footer.png",
+    spr_ui_signature_body   : "res/Signature_Body.png"
 };
 
 var resValues = Object.values(res);

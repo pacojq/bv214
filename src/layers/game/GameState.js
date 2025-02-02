@@ -476,11 +476,55 @@ class GameStateThrowingTokens extends GameState
     }
 }
 
-class GameStateEnd extends BaseGameStateFrogTalking
+class GameStateEnd extends GameState
 {
     constructor(layer)
     {
-        const text = "...y dile que me debe un bizum.";
-        super(layer, text, () => {});
+        super(() => {});
+        this.layer = layer;
+
+        this.sprBody = new Sprite(res.spr_ui_signature_body);
+        this.sprBody.xScale = 0.4;
+        this.sprBody.yScale = 0.4;
+        this.sprBody.alpha = 0.0;
+        
+        this.sprHeader = new Sprite(res.spr_ui_signature_header);
+        this.sprHeader.xScale = 0.4;
+        this.sprHeader.yScale = 0.4;
+        this.sprHeader.alpha = 0.0;
+        
+        this.sprFooter = new Sprite(res.spr_ui_signature_footer);
+        this.sprFooter.xScale = 0.3;
+        this.sprFooter.yScale = 0.3;
+        this.sprFooter.alpha = 0.0;
+
+        this.alpha = 0;
+    }
+
+    update()
+    {
+        this.alpha += 0.6 * DeltaTime;
+        this.alpha = Math.min(this.alpha, 1.0);
+    }
+
+    drawGUI()
+    {
+        let bgAlpha = 0.85 * (1 - (1 - this.alpha) * (1 - this.alpha));
+        let color = "rgba(255, 164, 231, " + bgAlpha + ")";
+        drawRect(-1, -1, this.layer.width+1, this.layer.height+1, color, true);
+
+        let x = this.layer.width/2.0;
+        let yHeader = this.layer.height * .2;
+        let yBody = this.layer.height * .5;
+        let yFooter = this.layer.height * .90;
+
+        let sprAlpha = this.alpha * this.alpha * this.alpha;
+        this.sprBody.alpha = sprAlpha;
+        this.sprHeader.alpha = sprAlpha;
+        this.sprFooter.alpha = sprAlpha;
+
+        this.sprBody.draw(x, yBody);
+        this.sprHeader.draw(x, yHeader);
+        this.sprFooter.draw(x, yFooter);
     }
 }

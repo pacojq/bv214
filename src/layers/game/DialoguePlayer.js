@@ -114,7 +114,7 @@ class DialoguePlayer
 
             case "GAME_END":
             {
-                this.layer.frog.faceIndex = 1;
+                this.layer.frog.faceIndex = 0;
                 let state = new GameStateEnd(this.layer);
                 this.layer.setState(state);
                 break;

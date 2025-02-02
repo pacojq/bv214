@@ -220,9 +220,9 @@ class GameStateChoice_Item
         this.yVelocity = 0;
         this.width = width;
         this.height = height;
-        this.sprBackground = new NineSlice(res.spr_ui_panel, width + 20, height + 12, 480, 240);
-        this.sprBackground.xScale = 0.1;
-        this.sprBackground.yScale = 0.1;
+        this.sprBackground = new NineSlice(res.spr_ui_panel, width + 20, height + 12, 120, 60);
+        this.sprBackground.xScale = 0.4;
+        this.sprBackground.yScale = 0.4;
 
         this.textSize = 18;
         if (this.option.text.length > 36)
@@ -373,8 +373,6 @@ class GameStateShowToken extends GameState
         this.uiWaiting.showWaitingCountdown = 1.2;
 
         this.sprSplash = new Sprite(res.spr_ui_splash);
-        this.sprSplash.xScale = 0.4;
-        this.sprSplash.yScale = 0.4;
         this.sprSplash.alpha = 0.0;
     }
 
@@ -484,18 +482,18 @@ class GameStateEnd extends GameState
         this.layer = layer;
 
         this.sprBody = new Sprite(res.spr_ui_signature_body);
-        this.sprBody.xScale = 0.4;
-        this.sprBody.yScale = 0.4;
+        this.sprBody.xScale = 0.8;
+        this.sprBody.yScale = 0.8;
         this.sprBody.alpha = 0.0;
         
         this.sprHeader = new Sprite(res.spr_ui_signature_header);
-        this.sprHeader.xScale = 0.4;
-        this.sprHeader.yScale = 0.4;
+        this.sprHeader.xScale = 0.8;
+        this.sprHeader.yScale = 0.8;
         this.sprHeader.alpha = 0.0;
         
         this.sprFooter = new Sprite(res.spr_ui_signature_footer);
-        this.sprFooter.xScale = 0.3;
-        this.sprFooter.yScale = 0.3;
+        this.sprFooter.xScale = 0.6;
+        this.sprFooter.yScale = 0.6;
         this.sprFooter.alpha = 0.0;
 
         this.alpha = 0;

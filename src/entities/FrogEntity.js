@@ -21,9 +21,7 @@ class FrogEntity extends Entity
             this._createBodySprite(res.spr_frog_face4),
         ];
         this.sprHat = new Sprite(res.spr_frog_hat);
-        this.sprHat.xScale = 0.5;
-        this.sprHat.yScale = 0.5;
-        this.sprHat.setOrigin(145, 390);
+        this.sprHat.setOrigin(72, 195);
         this.sprHat.rotation = -3;
     }
 

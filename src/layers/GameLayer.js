@@ -13,8 +13,6 @@ class GameLayer extends Layer
 
         this.sprTable = new Sprite(res.spr_table);
         this.sprBackground = new Sprite(res.spr_background);
-        this.sprTable.xScale = 0.5;
-        this.sprTable.yScale = 0.5;
         this.sprBackground.xScale = 0.72;
         this.sprBackground.yScale = 0.72;
         this.sprBackground.rotation = 5;

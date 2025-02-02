@@ -15,10 +15,10 @@ class GameLayer extends Layer
         this.sprBackground = new Sprite(res.spr_background);
         this.sprTable.xScale = 0.5;
         this.sprTable.yScale = 0.5;
-        this.sprBackground.xScale = 0.75;
-        this.sprBackground.yScale = 0.75;
-        this.sprBackground.rotation = -15;
-        this.sprBackground.alpha = 0.6;
+        this.sprBackground.xScale = 0.72;
+        this.sprBackground.yScale = 0.72;
+        this.sprBackground.rotation = 5;
+        this.sprBackground.alpha = 0.35;
 
         this.sprBorder = new Sprite(res.spr_gradient);
         this.sprBorder.yScale = (this.width + 40) / 32.0;
@@ -97,7 +97,7 @@ class GameLayer extends Layer
 
     draw()
     {
-        this.sprBackground.draw(this.width/2, this.frogY - 100);
+        this.sprBackground.draw(this.width/2 + 6, this.frogY - 90);
         this.sprTable.draw(this.width/2, this.frogY + 90);
 
         // Draw Entities

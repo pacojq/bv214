@@ -229,7 +229,7 @@ DO_CHOICE("PREDICTIONS_01", " ",
 DO_TEXT("PREDICTIONS_02",   "el futuro que muestran"                + '\n' +
                             "es cercano...",                        "PREDICTIONS_03");
 DO_TEXT("PREDICTIONS_03",   "MUY cercano.",                         "PREDICTIONS_04", 3);
-DO_TEXT("PREDICTIONS_04",   "este viernes.",                        "PREDICTIONS_05");
+DO_TEXT("PREDICTIONS_04",   "el próximo viernes.",                  "PREDICTIONS_05");
 DO_CHOICE("PREDICTIONS_05", " ",
     [
     new ChoiceOption(   "ahá.",                                     "PREDICTIONS_06"),
@@ -281,7 +281,7 @@ DO_TEXT("ENDING_03",    "porque alguien me ha pedido"               + '\n' +
                         "* personalizada *.",                       "ENDING_04");
 DO_TEXT("ENDING_04",    "mira, yo qué sé, el chaval"                + '\n' +
                         "parecía ilusionao, ¿vale?",                "ENDING_05A", 4);
-DO_TEXT("ENDING_05A",   "le ha dedicado un domingo"                 + '\n' +
+DO_TEXT("ENDING_05A",   "le ha dedicado un día"                     + '\n' +
                         "entero a hacer una movida"                 + '\n' +
                         "de \"carta jugable\" o algo.",             "ENDING_05B");
 DO_TEXT("ENDING_05B",   "solo pa pedir una cita."                   + '\n' +

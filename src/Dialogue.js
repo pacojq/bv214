@@ -168,7 +168,7 @@ DO_TEXT("CHOICE_BEE_00",    "bueno, sigamos. ahora"                 + '\n' +
                             "de imaginación:",                      "CHOICE_BEE_01");
 DO_TEXT("CHOICE_BEE_01",    "ves una abeja yendo a su"              + '\n' +
                             "bola por el bosque...",                "CHOICE_BEE_02", 4);
-DO_TEXT("CHOICE_BEE_02",    "y, a todas estas, parar a"             + '\n' +
+DO_TEXT("CHOICE_BEE_02",    "y, a todas estas, para a"              + '\n' +
                             "descansar sobre una flor.",            "CHOICE_BEE_03");
 DO_TEXT("CHOICE_BEE_03",    "¿de qué color es esa flor?",           "CHOICE_BEE_04", 2);
 DO_CHOICE("CHOICE_BEE_04",   "",
